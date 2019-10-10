@@ -1,5 +1,6 @@
 version: '3'
 services:
+  #mysql
   mysql-server:
     hostname: mysql-server
     container_name: mysql-server
@@ -15,19 +16,19 @@ services:
       MYSQL_DATABASE: myphp
       MYSQL_USER: php
       MYSQL_PASSWORD: php-mysql
-
+# redis 服务
   redis-server:
     hostname: redis-server
     container_name: redis-server
     image: redis
     ports:
       - 6380:6379
-
+# redis session
   redis-session:
     hostname: redis-session
     container_name: redis-session
     image: redis
-
+# mongo 服务
   mongo-server:
     hostname: mongo-server
     container_name: mongo-server
@@ -37,7 +38,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 123456
-
+# zookeeper 服务
   zookeeper-server:
     hostname: zookeeper-server
     container_name: zookeeper-server
