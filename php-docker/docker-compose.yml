@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web:
+    image: nginx
+    volumes:
+      - $HOME/Docker/nginx:/etc/nginx/conf.d
+      - $HOME/Docker/nginx/nginx.conf.notcache:/etc/nginx/nginx.conf
+      - $HOME/Docker/www:/home/data/www
+    ports:
+      - "8080:80"
+    environment:
+      - NGINX_HOST=foobar.com
+      - NGINX_PORT=80
+    command: /bin/bash -c "envsubst < /etc/nginx/conf.d/mysite.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
