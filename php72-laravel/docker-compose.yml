@@ -16,6 +16,20 @@ services:
       MYSQL_USER: php
       MYSQL_PASSWORD: php-mysql
 
+  mariadb-server:
+    hostname: mariadb-server
+    container_name: mariadb-server
+    image: mariadb
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 33060:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: myphp
+      MYSQL_USER: php
+      MYSQL_PASSWORD: php-mysql
+
   redis-server:
     hostname: redis-server
     container_name: redis-server

@@ -10,11 +10,26 @@ services:
       - $HOME/Docker/mysql57/all/data:/var/lib/mysql
     command: --character-set-server=utf8
     ports:
-      - 3307:3306
+      - 33070:3306
+      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: myphp
       MYSQL_USER: php
+      MYSQL_PASSWORD: php-mysql
+
+  mariadb-server:
+    hostname: mariadb-server
+    container_name: mariadb-server
+    image: mariadb
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 33060:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: gglm
+      MYSQL_USER: root_gglm
       MYSQL_PASSWORD: php-mysql
 # redis 服务
   redis-server:
@@ -119,54 +134,55 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 123456
 
-#  web-nginx-php71:
-#    hostname: web-nginx-php71
-#    container_name: web-nginx-php71
-#    image: maple52zoe/laravel-php71:3.0
-#    links:
-#    - mysql-server
-#    - redis-server
-#    - redis-session
-#    - mongo-server
-#    ports:
-#      - 71:80
-#    volumes:
-#      - $HOME/Docker/nginx:/etc/nginx/conf.d
-#      - $HOME/Docker/nginx/nginx.conf.notcache:/etc/nginx/nginx.conf
-#      - $HOME/Docker/www:/home/data/www
-#      - $HOME/Docker/ini/71/php.ini:/etc/php.ini
-#    environment:
-#      DB_SERVER_HOST: 127.0.0.1
-#      MYSQL_DATABASE: myphp
-#      MYSQL_USER: php
-#      MYSQL_PASSWORD: php-mysql
-#      MYSQL_ROOT_PASSWORD: 123456
-#      PHP_TZ: Asia/Shanghai
-#      MONGO_INITDB_ROOT_USERNAME: root
-#      MONGO_INITDB_ROOT_PASSWORD: 123456
+  web-nginx-php71:
+    hostname: web-nginx-php71
+    container_name: web-nginx-php71
+    image: maple52zoe/laravel-php71:3.0
+    links:
+    - mysql-server
+    - redis-server
+    - redis-session
+    - mongo-server
+    ports:
+      - 71:80
+    volumes:
+      - $HOME/Docker/nginx:/etc/nginx/conf.d
+      - $HOME/Docker/nginx/nginx.conf.notcache:/etc/nginx/nginx.conf
+      - $HOME/Docker/www:/home/data/www
+      - $HOME/Docker/ini/71/php.ini:/etc/php.ini
+    environment:
+      DB_SERVER_HOST: 127.0.0.1
+      MYSQL_DATABASE: myphp
+      MYSQL_USER: php
+      MYSQL_PASSWORD: php-mysql
+      MYSQL_ROOT_PASSWORD: 123456
+      PHP_TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
 #
-#  web-nginx-php72:
-#    hostname: web-nginx-php72
-#    container_name: web-nginx-php72
-#    image: maple52zoe/laravel-php72:3.0
-#    links:
-#    - mysql-server
-#    - redis-server
-#    - redis-session
-#    - mongo-server
-#    ports:
-#      - 72:80
-#    volumes:
-#      - $HOME/Docker/nginx:/etc/nginx/conf.d
-#      - $HOME/Docker/nginx/nginx.conf.notcache:/etc/nginx/nginx.conf
-#      - $HOME/Docker/www:/home/data/www
-#      - $HOME/Docker/ini/72/php.ini:/etc/php.ini
-#    environment:
-#      DB_SERVER_HOST: 127.0.0.1
-#      MYSQL_DATABASE: myphp
-#      MYSQL_USER: php
-#      MYSQL_PASSWORD: php-mysql
-#      MYSQL_ROOT_PASSWORD: 123456
-#      PHP_TZ: Asia/Shanghai
-#      MONGO_INITDB_ROOT_USERNAME: root
-#      MONGO_INITDB_ROOT_PASSWORD: 123456
+  web-nginx-php72:
+    hostname: web-nginx-php72
+    container_name: web-nginx-php72
+    image: maple52zoe/laravel-php72:3.0
+    links:
+      - mysql-server
+      - redis-server
+      - redis-session
+      - mongo-server
+      - mariadb-server
+    ports:
+      - 72:80
+    volumes:
+      - $HOME/Docker/nginx:/etc/nginx/conf.d
+      - $HOME/Docker/nginx/nginx.conf.notcache:/etc/nginx/nginx.conf
+      - $HOME/Docker/www:/home/data/www
+      - $HOME/Docker/ini/72/php.ini:/etc/php.ini
+    environment:
+      DB_SERVER_HOST: 127.0.0.1
+      MYSQL_DATABASE: myphp
+      MYSQL_USER: php
+      MYSQL_PASSWORD: php-mysql
+      MYSQL_ROOT_PASSWORD: 123456
+      PHP_TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456

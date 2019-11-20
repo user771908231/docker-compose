@@ -3,7 +3,7 @@ FROM php:7.2-cli
 # xdebug
 RUN pecl install redis-4.0.1 \
     && pecl install xdebug-2.6.0 \
-    && docker-php-ext-enable redis xdebug 
+    && docker-php-ext-enable redis xdebug
 # 增加 gd 扩展
 RUN apt-get update && \
     apt-get install -y --no-install-recommends libfreetype6-dev libjpeg62-turbo-dev libpng-dev && \
